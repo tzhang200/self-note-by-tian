@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration {
             $table->string('email')->unique();
             $table->string('password', 80);
             $table->boolean('confirmed')->default(0);
+            //stes
             $table->string('confirmcode')->nullable();
             $table->timestamps();
         });
