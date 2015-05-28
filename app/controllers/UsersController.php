@@ -62,15 +62,36 @@ class UsersController extends \BaseController {
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
         //sending confirmation email
-        $confirmationCode = str_random(30);
+        $confirmationCode = str_random(30).Input::get('email');
         $this->user->email=Input::get('email');
         $this->user->password = Hash::make(Input::get('password'));
         $this->user->confirmcode = $confirmationCode;
+        Mail::send('users.verify', ['confirmationCode'=>$confirmationCode], function($message) {
+            $message->to(Input::get('email'), Input::get('email'))->subject('verify your email address');
+        });
         $this->user->save();
         return Redirect::route('users.processregistration');
 
 	}
 
+    public function confirm($confirmationCode)
+    {
+        if ($confirmationCode == null)
+        {
+            return Redirect::route('users.processregistration');
+        }
+        //$user = User::WhereConfirmcode($confirmationCode)->first();
+        $user = User::Where('confirmcode', '=', $confirmationCode)->first();
+        if ($user == null)
+        {
+            return Redirect::route('users.processregistration');
+        }
+        $user->confirmed = 1;
+        $user->confirmcode = null;
+        $user->save();
+
+        return Redirect::route('login');
+    }
     public function forgotpassword()
     {
         //

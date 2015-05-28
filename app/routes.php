@@ -21,4 +21,8 @@ Route::get('/', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destroy');
 Route::get('forgotpassword', array('uses'=>'UsersController@forgotpassword', 'as' => 'forgotpassword'));
 Route::resource('users', 'UsersController');
+Route::get('users/verify/{confirmationCode}', [
+    'uses' => 'UsersController@confirm',
+    'as' => 'emailConfirmation'
+]);
 Route::resource('sessions', "SessionsController");
