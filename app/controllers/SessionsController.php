@@ -1,19 +1,12 @@
 <?php
 
-class UsersController extends \BaseController {
+class SessionsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
-     *
 	 */
-    protected $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
 	public function index()
 	{
 		//
@@ -28,8 +21,7 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		//
-        return View::make('users.create');
-
+        return View::make('sessions.create');
 	}
 
 
@@ -41,27 +33,9 @@ class UsersController extends \BaseController {
 	public function store()
 	{
 		//
-        $input = Input::all();
-        $this->user->fill($input);
-        $this->user->email=Input::get('email');
-        $this->user->password = Hash::make(Input::get('password'));
-
-        if (!($this->user->isValid()))
-        {
-            return Redirect::back()->withInput()->withErrors($this->user->messages);
-        }
-        $this->user->save();
-        return Redirect::route('users.processregistration');
-
 	}
 
-    public function forgotpassword()
-    {
-        //
-        //return View::make('users.forgotpassword');
-        return "hello";
 
-    }
 	/**
 	 * Display the specified resource.
 	 *

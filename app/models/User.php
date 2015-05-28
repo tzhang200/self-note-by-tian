@@ -32,4 +32,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password' => 'required|min:2|max:80'
     ];
 
+    public function isVAlid()
+    {
+        $v = Validator::make($this->attributes, static::$rules);
+        if ($v->passes())
+        {
+            return true;
+        }
+        $this->messages = $v->messages();
+        return false;
+    }
+
 }
