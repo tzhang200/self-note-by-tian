@@ -42,14 +42,30 @@ class UsersController extends \BaseController {
 	{
 		//
         $input = Input::all();
-        $this->user->fill($input);
-        $this->user->email=Input::get('email');
-        $this->user->password = Hash::make(Input::get('password'));
+        //$this->user->fill($input);
 
+        $validateMessages = [
+            'captcha' => 'The captcha is not correct.',
+        ];
+        $validator = Validator::make($input, User::$rules, $validateMessages);
+        /*
         if (!($this->user->isValid()))
         {
             return Redirect::back()->withInput()->withErrors($this->user->messages);
         }
+        */
+        $validateMessages = [
+            'captcha' => 'The captcha is not correct.',
+        ];
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator->messages());
+        }
+        //sending confirmation email
+        $confirmationCode = str_random(30);
+        $this->user->email=Input::get('email');
+        $this->user->password = Hash::make(Input::get('password'));
+        $this->user->confirmcode = $confirmationCode;
         $this->user->save();
         return Redirect::route('users.processregistration');
 

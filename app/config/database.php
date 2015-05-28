@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'assignment',
 			'username'  => 'root',
-			'password'  => 'QApassword2920',
+			'password'  => 'password2920',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

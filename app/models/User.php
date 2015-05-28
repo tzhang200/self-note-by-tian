@@ -15,7 +15,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
     public $timestamps = true;
-    protected $fillable = ['email', 'password', 'confirmed', 'confirmcode', 'attemp' ];
+    protected $fillable = ['email', 'password', 'confirmed', 'confirmcode', 'attemp', 'password_confirmation' ];
     public $message;
 
 	protected $table = 'users';
@@ -28,8 +28,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password', 'remember_token');
 
     public static $rules = [
-        'email' => 'required',
-        'password' => 'required|min:2|max:80'
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6|max:80|confirmed',
+        'user-captcha' => 'required|captcha',
     ];
 
     public function isVAlid()

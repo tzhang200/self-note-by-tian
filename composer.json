@@ -6,7 +6,9 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"barryvdh/laravel-ide-helper": "1.11.x-dev"
+		"barryvdh/laravel-ide-helper": "1.11.x-dev",
+        "mews/captcha": "dev-master-l4",
+		"mohsen/captcha": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
