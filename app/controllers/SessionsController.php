@@ -21,6 +21,10 @@ class SessionsController extends \BaseController {
 	public function create()
 	{
 		//
+        if (Auth::check())
+        {
+            return 'note page';
+        }
         return View::make('sessions.create');
 	}
 
@@ -33,6 +37,19 @@ class SessionsController extends \BaseController {
 	public function store()
 	{
 		//
+        $credentials = [
+            'email' => Input::get('email'),
+            'password' => Input::get('password'),
+            'confirmed' => 1
+        ];
+        if (Auth::attempt($credentials))
+        {
+            return "Logged in as ". Auth::user()->email;
+        }
+        else
+        {
+            "unsuccessful login attemp";
+        }
 
 	}
 
@@ -82,6 +99,8 @@ class SessionsController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+        Auth::logout();
+        return Redirect::route('sessions.create');
 	}
 
 

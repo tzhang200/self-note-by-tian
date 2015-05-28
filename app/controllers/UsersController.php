@@ -95,9 +95,12 @@ class UsersController extends \BaseController {
     public function forgotpassword()
     {
         //
-        //return View::make('users.forgotpassword');
-        return "hello";
+        return View::make('users.forgotpassword');
 
+    }
+    public function resetpassword()
+    {
+        return "success";
     }
 	/**
 	 * Display the specified resource.
