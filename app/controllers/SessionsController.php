@@ -48,7 +48,7 @@ class SessionsController extends \BaseController {
         }
         else
         {
-            "unsuccessful login attemp";
+            return "unsuccessful login attempt";
         }
 
 	}

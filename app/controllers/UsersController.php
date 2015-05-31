@@ -54,9 +54,6 @@ class UsersController extends \BaseController {
             return Redirect::back()->withInput()->withErrors($this->user->messages);
         }
         */
-        $validateMessages = [
-            'captcha' => 'The captcha is not correct.',
-        ];
         if ($validator->fails())
         {
             return Redirect::back()->withInput()->withErrors($validator->messages());
@@ -80,7 +77,6 @@ class UsersController extends \BaseController {
         {
             return Redirect::route('users.processregistration');
         }
-        //$user = User::WhereConfirmcode($confirmationCode)->first();
         $user = User::Where('confirmcode', '=', $confirmationCode)->first();
         if ($user == null)
         {
@@ -100,7 +96,31 @@ class UsersController extends \BaseController {
     }
     public function resetpassword()
     {
-        return "success";
+        $input = Input::all();
+        $rules = ['email' => 'required|email|exists:users'];
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator->messages());
+        }
+        //sending password reset email
+        $randomPassword = str_random(6);
+        $user = User::Where('email', '=', Input::get('email'))->first();;
+        $user->password = Hash::make($randomPassword);
+        //$user->confirmed = 0;  //user needs to re-confirm: TODO
+        //$confirmationCode = str_random(30).Input::get('email');
+        $confirmationCode = $user->confirmcode;
+
+        Mail::send('users.reset', ['confirmationCode'=>$confirmationCode, 'newPassword'=>$randomPassword], function($message) {
+            $message->to(Input::get('email'), Input::get('email'))->subject('Password Reset Notice');
+        });
+        $user->save();
+        return Redirect::route('processpassword');
+    }
+
+    public function processpassword()
+    {
+        return View::make('users.processpassword');
     }
 	/**
 	 * Display the specified resource.
