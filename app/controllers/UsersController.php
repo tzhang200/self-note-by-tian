@@ -67,7 +67,23 @@ class UsersController extends \BaseController {
             $message->to(Input::get('email'), Input::get('email'))->subject('verify your email address');
         });
         $this->user->save();
-        return Redirect::route('users.processregistration');
+        //allocate a new note for the new user
+        $note = Note::where('userid', '=', $this->user->id)->first();
+        if ($note == null)
+        {
+            $note = new Note();
+            $note->userid = $this->user->id;
+            $note->email = $this->user->email;
+            $note->notes = "";
+            $note->tbd = "";
+            $note->hlink1 = "";
+            $note->hlink2 = "";
+            $note->hlink3 = "";
+            $note->hlink4 = "";
+            $note->save();
+        }
+        //return Redirect::route('users.processregistration');
+        return "Success";
 
 	}
 
@@ -75,18 +91,18 @@ class UsersController extends \BaseController {
     {
         if ($confirmationCode == null)
         {
-            return Redirect::route('users.processregistration');
+            return View::make('users.process_registration');
         }
         $user = User::Where('confirmcode', '=', $confirmationCode)->first();
         if ($user == null)
         {
-            return Redirect::route('users.processregistration');
+            return View::make('users.process_registration');
         }
         $user->confirmed = 1;
         $user->confirmcode = null;
         $user->save();
 
-        return Redirect::route('login');
+        return Redirect::route('sessions.create');
     }
     public function forgotpassword()
     {

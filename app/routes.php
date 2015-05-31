@@ -18,7 +18,7 @@ Route::get('/', function()
 */
 Route::get('login', 'SessionsController@create');
 Route::get('/', 'SessionsController@create');
-Route::get('logout', 'SessionsController@destroy');
+Route::get('logout', array('uses'=>'SessionsController@destroy', 'as' => 'logout'));
 Route::get('forgotpassword', array('uses'=>'UsersController@forgotpassword', 'as' => 'forgotpassword'));
 Route::post('forgotpassword', array('uses'=>'UsersController@resetpassword', 'as' => 'resetpassword'));
 Route::get('processpassword', array('uses'=>'UsersController@processpassword', 'as'=>'processpassword'));
@@ -28,3 +28,6 @@ Route::get('users/verify/{confirmationCode}', [
     'as' => 'emailConfirmation'
 ]);
 Route::resource('sessions', "SessionsController");
+Route::group(['before' => 'auth'], function(){
+    Route::resource('notes', "NotesController");
+});

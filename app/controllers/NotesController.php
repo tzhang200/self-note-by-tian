@@ -1,6 +1,6 @@
 <?php
 
-class SessionsController extends \BaseController {
+class NotesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,6 +10,7 @@ class SessionsController extends \BaseController {
 	public function index()
 	{
 		//
+        return "HELLO NOTES";
 	}
 
 
@@ -21,11 +22,7 @@ class SessionsController extends \BaseController {
 	public function create()
 	{
 		//
-        if (Auth::check())
-        {
-            return 'note page';
-        }
-        return View::make('sessions.create');
+        return "HELLO NOTES";
 	}
 
 
@@ -37,22 +34,6 @@ class SessionsController extends \BaseController {
 	public function store()
 	{
 		//
-        $credentials = [
-            'email' => Input::get('email'),
-            'password' => Input::get('password'),
-            'confirmed' => 1
-        ];
-        if (Auth::attempt($credentials))
-        {
-
-            //return "Logged in as ". Auth::user()->email;
-            return Redirect::route('notes.show', array(Auth::user()->email));
-        }
-        else
-        {
-            return View::make('sessions.processlogin');
-        }
-
 	}
 
 
@@ -65,6 +46,9 @@ class SessionsController extends \BaseController {
 	public function show($id)
 	{
 		//
+        //return View::make('notes.show');
+        $note = Note::where('email', '=', $id)->first();
+        return View::make('notes.show')->with('note', $note);
 	}
 
 
@@ -98,11 +82,9 @@ class SessionsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy()
+	public function destroy($id)
 	{
 		//
-        Auth::logout();
-        return Redirect::route('sessions.create');
 	}
 
 
