@@ -34,6 +34,7 @@ class NotesController extends \BaseController {
 	public function store()
 	{
 		//
+        return "Hello store";
 	}
 
 
@@ -73,6 +74,7 @@ class NotesController extends \BaseController {
 	public function update($id)
 	{
 		//
+        return "hello update";
 	}
 
 
