@@ -46,6 +46,21 @@ class SessionsController extends \BaseController {
         {
 
             //return "Logged in as ". Auth::user()->email;
+            //in case the note table not initialized yet for this user
+            $note = Note::where('userid', '=', Auth::user()->id)->first();
+            if ($note == null)
+            {
+                $note = new Note();
+                $note->userid = $this->user->id;
+                $note->email = $this->user->email;
+                $note->notes = "";
+                $note->tbd = "";
+                $note->hlink1 = "";
+                $note->hlink2 = "";
+                $note->hlink3 = "";
+                $note->hlink4 = "";
+                $note->save();
+            }
             return Redirect::route('notes.show', array(Auth::user()->email));
         }
         else

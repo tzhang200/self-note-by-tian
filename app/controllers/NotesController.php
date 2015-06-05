@@ -74,7 +74,38 @@ class NotesController extends \BaseController {
 	public function update($id)
 	{
 		//
-        return "hello update";
+        $input = Input::all();
+        //TODO: validation
+        $note = Note::where('email', '=', $id)->first();
+        $file1 = Input::file('img1');
+        $file2 = Input::file('img2');
+        $file3 = Input::file('img3');
+        $file4 = Input::file('img4');
+        $note->notes = Input::get('notes');
+        $note->tbd = Input::get('tbd');
+        $note->hlink1 = Input::get('hlink1');
+        $note->hlink2 = Input::get('hlink2');
+        $note->hlink3 = Input::get('hlink3');
+        $note->hlink4 = Input::get('hlink4');
+        if ($file1 != null)
+        {
+            /*
+           // $tmpName = $file1->
+            $tmpName = $file1->getPathname();
+            $fp = fopen($tmpName, 'r');
+            $data = fread($fp, filesize($tmpName));
+            $data = addslashes($data);
+            fclose($fp);
+            $note->img1 = $data;
+            */
+           // $type = pathinfo($file1->getPathname(), PATHINFO_EXTENSION );
+            $data = file_get_contents($file1->getPathname());
+            $base64 = 'data:' . $file1->getClientMimeType() . ';base64,' . base64_encode($data);
+            $note->img1 = $base64;
+        }
+        $note->save();
+        return Redirect::back()->withInput();
+
 	}
 
 
