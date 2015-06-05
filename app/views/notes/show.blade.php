@@ -13,7 +13,7 @@
             <div id="column2">
                 <h2>websites</h2>
                 <h3>click to open</h3>
-                {{FORM::text('hlink1', $note->hlink1)}}
+                {{FORM::text('hlink1', $note->hlink1, array('onclick'=>'openTextInNew(this);'))}}
                 <br>
                 {{FORM::text('hlink2', $note->hlink2)}}
                 <br>
@@ -27,8 +27,14 @@
             <div id="column3">
                 <h2>images</h2>
                 <h3>click for full size</h3>
-                {{FORM::file('img1')}}
-                <img src="{{$note->img1}}" width="20px" />
+                @if ( $note->img1 == null )
+                    {{FORM::file('img1')}}
+                @else
+                 <a href="{{$note->img1}}">
+                    <img src="{{$note->img1}}" width="30px" />
+                 </a>
+                 {{FORM::checkbox('delImg1')}}
+                @endif
                 {{FORM::file('img2')}}
                 {{FORM::file('img3')}}
                 {{FORM::file('img4')}}

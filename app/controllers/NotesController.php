@@ -83,7 +83,8 @@ class NotesController extends \BaseController {
         $file4 = Input::file('img4');
         $note->notes = Input::get('notes');
         $note->tbd = Input::get('tbd');
-        $note->hlink1 = Input::get('hlink1');
+        if (Input::get('hlink1')!= null)
+            $note->hlink1 = Input::get('hlink1');
         $note->hlink2 = Input::get('hlink2');
         $note->hlink3 = Input::get('hlink3');
         $note->hlink4 = Input::get('hlink4');
