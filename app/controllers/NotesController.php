@@ -75,6 +75,21 @@ class NotesController extends \BaseController {
 	{
 		//
         $input = Input::all();
+        $rules = [
+            'hlink1' => 'url',
+            'hlink2' => 'url',
+            'hlink3' => 'url',
+            'hlink4' => 'url',
+            'img1'   => 'max:60|mimes:jpeg,gif',
+            'img2'   => 'max:60|mimes:jpeg,gif',
+            'img3'   => 'max:60|mimes:jpeg,gif',
+            'img4'   => 'max:60:mimes:jpeg,gif',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator->messages());
+        }
         //TODO: validation
         $note = Note::where('email', '=', $id)->first();
        // $file1 = Input::file('img1');
@@ -106,10 +121,12 @@ class NotesController extends \BaseController {
                 $imageFile = Input::file($imageFields[$i]);
                 if ($imageFile != null)
                 {
-                    $imageData = file_get_contents($imageFile->getPathname());
-                    $imageBase64 = 'data:' . $imageFile->getClientMimeType() . ';base64,' . base64_encode($imageData);
-                    $note->$imageFields[$i] = $imageBase64;
-                    //$note->img2 = $imageBase64;
+                    if ($imageFile->getSize() < 60000) {
+                        $imageData = file_get_contents($imageFile->getPathname());
+                        $imageBase64 = 'data:' . $imageFile->getClientMimeType() . ';base64,' . base64_encode($imageData);
+                        $note->$imageFields[$i] = $imageBase64;
+                    }
+
                 }
             }
         }

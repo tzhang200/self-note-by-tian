@@ -23,7 +23,8 @@ class SessionsController extends \BaseController {
 		//
         if (Auth::check())
         {
-            return 'note page';
+            $note = Note::where('email', '=', Auth::user()->email)->first();
+            return View::make('notes.show')->with('note', $note);
         }
         return View::make('sessions.create');
 	}
