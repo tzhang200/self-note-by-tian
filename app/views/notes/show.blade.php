@@ -30,14 +30,38 @@
                 @if ( $note->img1 == null )
                     {{FORM::file('img1')}}
                 @else
-                 <a href="{{$note->img1}}">
-                    <img src="{{$note->img1}}" width="30px" />
+                 <a href="{{$note->img1}} target="_blank"">
+                    <img src="{{$note->img1}}" height="30px" />
                  </a>
                  {{FORM::checkbox('delImg1')}}
                 @endif
-                {{FORM::file('img2')}}
-                {{FORM::file('img3')}}
-                {{FORM::file('img4')}}
+                <hr />
+                @if ( $note->img2 == null )
+                    {{FORM::file('img2')}}
+                @else
+                    <a href="{{$note->img2}}" target="_blank">
+                        <img src="{{$note->img2}}" height="30px" />
+                    </a>
+                    {{FORM::checkbox('delImg2')}}
+                @endif
+                <hr />
+                @if ( $note->img3 == null )
+                    {{FORM::file('img3')}}
+                @else
+                    <a href="{{$note->img3}}" target="_blank">
+                        <img src="{{$note->img3}}" height="30px" />
+                    </a>
+                    {{FORM::checkbox('delImg3')}}
+                @endif
+                <hr />
+                @if ( $note->img4 == null )
+                    {{FORM::file('img4')}}
+                @else
+                    <a href="{{$note->img4}}" target="_blank">
+                        <img src="{{$note->img4}}" height="30px" />
+                    </a>
+                    {{FORM::checkbox('delImg4')}}
+                @endif
             </div>
             <div id="column4">
                 <h2>tbd</h2>

@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 */
-Route::get('login', 'SessionsController@create');
+Route::get('login', array('uses'=>'SessionsController@create', 'as' => 'login'));
 Route::get('/', 'SessionsController@create');
 Route::get('logout', array('uses'=>'SessionsController@destroy', 'as' => 'logout'));
 Route::get('forgotpassword', array('uses'=>'UsersController@forgotpassword', 'as' => 'forgotpassword'));

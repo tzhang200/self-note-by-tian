@@ -10,7 +10,7 @@
    Welcome to  the Self Note app. YOUR NEW PASSWORD IS {{$newPassword}}. Please keep this email or write this down.
 </div>
 <div>
-    To log in again, please click this link:  {{ URL::to('users/verify/' . $confirmationCode) }} <br/>
+    To log in again, please click this link: <a href="{{ URL::to('login' ) }}">Log in</a> <br/>
 </div>
 
 </body>
