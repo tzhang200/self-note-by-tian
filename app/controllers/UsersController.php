@@ -82,8 +82,7 @@ class UsersController extends \BaseController {
             $note->hlink4 = "";
             $note->save();
         }
-        //return Redirect::route('users.processregistration');
-        return "Success";
+        return View::make('users.process_registration_success',array('email'=>Input::get('email')));
 
 	}
 
@@ -102,7 +101,7 @@ class UsersController extends \BaseController {
         $user->confirmcode = null;
         $user->save();
 
-        return Redirect::route('sessions.create');
+        return View::make('users.process_registration_confirm');
     }
     public function forgotpassword()
     {

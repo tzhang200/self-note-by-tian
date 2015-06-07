@@ -8,8 +8,8 @@
 
 <div>
     Thanks for creating an account with the Self Note app.
-    Please follow the link below to verify your email address
-    {{ URL::to('users/verify/' . $confirmationCode) }} <br/>
+    Please click the link below to verify your email address
+    <a href="{{ URL::to('users/verify/' . $confirmationCode) }}">Confirm registration</a> <br/>
 
 </div>
 

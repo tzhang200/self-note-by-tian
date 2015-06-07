@@ -35,6 +35,10 @@ class CreateNotesTable extends Migration {
             $table->binary('img4')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('notes', function($table) {
+           $table->foreign('userid')->references('id')->on('users')->onDelete('cascade');
+        });
 	}
 
 	/**
