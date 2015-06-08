@@ -27,6 +27,7 @@ Route::get('users/verify/{confirmationCode}', [
     'uses' => 'UsersController@confirm',
     'as' => 'emailConfirmation'
 ]);
+Route::get('users/unlock/{confirmationCode}', array('uses' => 'UsersController@unlock', 'as' => 'unlockAccount'));
 Route::resource('sessions', "SessionsController");
 Route::group(['before' => 'auth'], function(){
     Route::resource('notes', "NotesController");

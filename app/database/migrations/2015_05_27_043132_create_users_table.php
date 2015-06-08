@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration {
             $table->string('remember_token', 100)->nullable();
             $table->boolean('confirmed')->default(0);
             $table->string('confirmcode')->nullable();
+            $table->integer('attempts')->default(0);
+            $table->boolean('locked')->default(0);
             $table->timestamps();
         });
 	}

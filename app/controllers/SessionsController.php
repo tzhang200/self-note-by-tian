@@ -41,12 +41,11 @@ class SessionsController extends \BaseController {
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password'),
-            'confirmed' => 1
+            'confirmed' => 1,
+            'locked' => 0
         ];
         if (Auth::attempt($credentials))
         {
-
-            //return "Logged in as ". Auth::user()->email;
             //in case the note table not initialized yet for this user
             $note = Note::where('userid', '=', Auth::user()->id)->first();
             if ($note == null)
@@ -66,6 +65,26 @@ class SessionsController extends \BaseController {
         }
         else
         {
+            $user = User::where('email', '=', Input::get('email'))->first();
+            if ($user != null && $user->locked == 1)
+            {
+                return View::make('users.process_lock');
+            }
+            if ($user != null && $user->confirmed == 1) {
+                $user->attempts++;
+                if ($user->attempts > 2) {
+                    $user->locked = 1;
+                    //sending password reset email
+                    $randomPassword = str_random(6);
+                    $user->password = Hash::make($randomPassword);
+                    $confirmationCode = str_random(30).Input::get('email');
+                    $user->confirmcode = $confirmationCode;
+                    Mail::send('emails.auth.breakin_attempt', ['confirmationCode' => $confirmationCode, 'newPassword' => $randomPassword], function ($message) {
+                        $message->to(Input::get('email'), Input::get('email'))->subject('Account Locked Notice');
+                    });
+                }
+                $user->save();
+            }
             return View::make('sessions.processlogin');
         }
 

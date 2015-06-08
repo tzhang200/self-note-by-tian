@@ -103,6 +103,25 @@ class UsersController extends \BaseController {
 
         return View::make('users.process_registration_confirm');
     }
+
+    public function unlock($confirmationCode)
+    {
+        if ($confirmationCode == null)
+        {
+            return View::make('users.process_registration'); //TODO
+        }
+        $user = User::Where('confirmcode', '=', $confirmationCode)->first();
+        if ($user == null)
+        {
+            return View::make('users.process_registration'); //TODO
+        }
+        $user->locked = 0;
+        $user->confirmcode = null;
+        $user->attempts = 0;
+        $user->save();
+
+        return View::make('users.process_unlock_confirm');
+    }
     public function forgotpassword()
     {
         //
@@ -129,6 +148,8 @@ class UsersController extends \BaseController {
         Mail::send('users.reset', ['confirmationCode'=>$confirmationCode, 'newPassword'=>$randomPassword], function($message) {
             $message->to(Input::get('email'), Input::get('email'))->subject('Password Reset Notice');
         });
+        $user->locked = 0;
+        $user->attempts = 0;
         $user->save();
         return Redirect::route('processpassword');
     }
