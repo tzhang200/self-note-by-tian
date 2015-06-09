@@ -63,7 +63,7 @@ class UsersController extends \BaseController {
         $this->user->email=Input::get('email');
         $this->user->password = Hash::make(Input::get('password'));
         $this->user->confirmcode = $confirmationCode;
-        Mail::send('users.verify', ['confirmationCode'=>$confirmationCode], function($message) {
+        Mail::send('emails.auth.verify', ['confirmationCode'=>$confirmationCode], function($message) {
             $message->to(Input::get('email'), Input::get('email'))->subject('verify your email address');
         });
         $this->user->save();
@@ -145,7 +145,7 @@ class UsersController extends \BaseController {
         //$confirmationCode = str_random(30).Input::get('email');
         $confirmationCode = $user->confirmcode;
 
-        Mail::send('users.reset', ['confirmationCode'=>$confirmationCode, 'newPassword'=>$randomPassword], function($message) {
+        Mail::send('emails.auth.reset', ['confirmationCode'=>$confirmationCode, 'newPassword'=>$randomPassword], function($message) {
             $message->to(Input::get('email'), Input::get('email'))->subject('Password Reset Notice');
         });
         $user->locked = 0;
