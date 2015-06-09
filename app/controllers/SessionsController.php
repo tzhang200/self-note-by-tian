@@ -38,6 +38,10 @@ class SessionsController extends \BaseController {
 	public function store()
 	{
 		//
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password'),
