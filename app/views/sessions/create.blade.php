@@ -18,10 +18,19 @@
         </div>
     </div>
     <div class="row">
-        {{Form::submit('Log in', array('class'=>'btn-primary'))}}
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            {{Form::submit('Log in', array('class'=>'btn-primary'))}}
+        </div>
     </div>
 {{Form::close()}}
 
-{{HTML::linkRoute('users.create', 'Register')}} | {{HTML::linkRoute('forgotpassword', 'Forgot password')}}
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        {{HTML::linkRoute('users.create', 'Register')}} | {{HTML::linkRoute('forgot_password', 'Forgot password')}}
+    </div>
+</div>
+
 
 @stop

@@ -19,9 +19,9 @@ Route::get('/', function()
 Route::get('login', array('uses'=>'SessionsController@create', 'as' => 'login'));
 Route::get('/', 'SessionsController@create');
 Route::get('logout', array('uses'=>'SessionsController@destroy', 'as' => 'logout'));
-Route::get('forgotpassword', array('uses'=>'UsersController@forgotpassword', 'as' => 'forgotpassword'));
-Route::post('forgotpassword', array('uses'=>'UsersController@resetpassword', 'as' => 'resetpassword'));
-Route::get('processpassword', array('uses'=>'UsersController@processpassword', 'as'=>'processpassword'));
+Route::get('forgotpassword', array('uses'=>'UsersController@forgotPassword', 'as' => 'forgot_password'));
+Route::post('forgotpassword', array('uses'=>'UsersController@resetPassword', 'as' => 'reset_password'));
+Route::get('processpassword', array('uses'=>'UsersController@processPassword', 'as'=>'process_password'));
 Route::resource('users', 'UsersController');
 Route::get('users/verify/{confirmationCode}', [
     'uses' => 'UsersController@confirm',

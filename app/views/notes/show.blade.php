@@ -30,15 +30,15 @@
         <div id="section2">
             <div id="column3">
                 <h2>images</h2>
-                <h3>click for full size</h3>
+                <h3>Click for full size</h3>
                 @if ( $note->img1 == null )
                     {{FORM::file('img1', array('accept'=>'.jpg,.gif'))}}
                     <span class='text-danger'>{{$errors->first('img1')}}</span>
                 @else
                  <a href="{{$note->img1}}" target="_blank">
-                    <img src="{{$note->img1}}" height="30px" />
+                    <img src="{{$note->img1}}" height="30px" width="50px" />
                  </a>
-                 {{FORM::checkbox('delImg1')}}
+                 {{FORM::checkbox('delImg1')}} Remove
                 @endif
                 <hr />
                 @if ( $note->img2 == null )
@@ -46,9 +46,9 @@
                     <span class='text-danger'>{{$errors->first('img2')}}</span>
                 @else
                     <a href="{{$note->img2}}" target="_blank">
-                        <img src="{{$note->img2}}" height="30px" />
+                        <img src="{{$note->img2}}" height="30px" width="50px"/>
                     </a>
-                    {{FORM::checkbox('delImg2')}}
+                    {{FORM::checkbox('delImg2')}} Remove
                 @endif
                 <hr />
                 @if ( $note->img3 == null )
@@ -56,9 +56,9 @@
                     <span class='text-danger'>{{$errors->first('img3')}}</span>
                 @else
                     <a href="{{$note->img3}}" target="_blank">
-                        <img src="{{$note->img3}}" height="30px" />
+                        <img src="{{$note->img3}}" height="30px" width="50px" />
                     </a>
-                    {{FORM::checkbox('delImg3')}}
+                    {{FORM::checkbox('delImg3')}} Remove
                 @endif
                 <hr />
                 @if ( $note->img4 == null )
@@ -66,9 +66,9 @@
                     <span class='text-danger'>{{$errors->first('img4')}}</span>
                 @else
                     <a href="{{$note->img4}}" target="_blank">
-                        <img src="{{$note->img4}}" height="30px" />
+                        <img src="{{$note->img4}}" height="30px" width="50px" />
                     </a>
-                    {{FORM::checkbox('delImg4')}}
+                    {{FORM::checkbox('delImg4')}} Remove
                 @endif
             </div>
             <div id="column4">

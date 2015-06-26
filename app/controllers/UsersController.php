@@ -48,12 +48,7 @@ class UsersController extends \BaseController {
             'captcha' => 'The captcha is not correct.',
         ];
         $validator = Validator::make($input, User::$rules, $validateMessages);
-        /*
-        if (!($this->user->isValid()))
-        {
-            return Redirect::back()->withInput()->withErrors($this->user->messages);
-        }
-        */
+
         if ($validator->fails())
         {
             return Redirect::back()->withInput()->withErrors($validator->messages());
@@ -122,13 +117,13 @@ class UsersController extends \BaseController {
 
         return View::make('users.process_unlock_confirm');
     }
-    public function forgotpassword()
+    public function forgotPassword()
     {
         //
-        return View::make('users.forgotpassword');
+        return View::make('users.forgot_password');
 
     }
-    public function resetpassword()
+    public function resetPassword()
     {
         $input = Input::all();
         $rules = ['email' => 'required|email|exists:users'];
@@ -151,12 +146,12 @@ class UsersController extends \BaseController {
         $user->locked = 0;
         $user->attempts = 0;
         $user->save();
-        return Redirect::route('processpassword');
+        return Redirect::route('process_password');
     }
 
-    public function processpassword()
+    public function processPassword()
     {
-        return View::make('users.processpassword');
+        return View::make('users.process_password');
     }
 	/**
 	 * Display the specified resource.

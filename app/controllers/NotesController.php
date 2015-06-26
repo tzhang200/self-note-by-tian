@@ -80,17 +80,16 @@ class NotesController extends \BaseController {
             'hlink2' => 'url',
             'hlink3' => 'url',
             'hlink4' => 'url',
-            'img1'   => 'max:60|mimes:jpeg,gif',
-            'img2'   => 'max:60|mimes:jpeg,gif',
-            'img3'   => 'max:60|mimes:jpeg,gif',
-            'img4'   => 'max:60:mimes:jpeg,gif',
+            'img1'   => 'max:600|mimes:jpeg,gif',
+            'img2'   => 'max:600|mimes:jpeg,gif',
+            'img3'   => 'max:600|mimes:jpeg,gif',
+            'img4'   => 'max:600:mimes:jpeg,gif',
         ];
         $validator = Validator::make($input, $rules);
         if ($validator->fails())
         {
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
-        //TODO: validation
         $note = Note::where('email', '=', $id)->first();
        // $file1 = Input::file('img1');
        // $file2 = Input::file('img2');
@@ -121,7 +120,7 @@ class NotesController extends \BaseController {
                 $imageFile = Input::file($imageFields[$i]);
                 if ($imageFile != null)
                 {
-                    if ($imageFile->getSize() < 60000) {
+                    if ($imageFile->getSize() < 600000) {
                         $imageData = file_get_contents($imageFile->getPathname());
                         $imageBase64 = 'data:' . $imageFile->getClientMimeType() . ';base64,' . base64_encode($imageData);
                         $note->$imageFields[$i] = $imageBase64;
@@ -131,22 +130,6 @@ class NotesController extends \BaseController {
             }
         }
 
-        //if ($file1 != null)
-        //{
-
-           // $tmpName = $file1->
-           // $tmpName = $file1->getPathname();
-           // $fp = fopen($tmpName, 'r');
-           // $data = fread($fp, filesize($tmpName));
-           // $data = addslashes($data);
-           // fclose($fp);
-           // $note->img1 = $data;
-
-           // $type = pathinfo($file1->getPathname(), PATHINFO_EXTENSION );
-          //  $data = file_get_contents($file1->getPathname());
-            //$base64 = 'data:' . $file1->getClientMimeType() . ';base64,' . base64_encode($data);
-            //$note->img1 = $base64;
-        //}
 
         $note->save();
         return Redirect::back()->withInput();

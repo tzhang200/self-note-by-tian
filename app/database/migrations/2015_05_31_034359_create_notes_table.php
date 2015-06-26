@@ -29,13 +29,16 @@ class CreateNotesTable extends Migration {
             $table->string('hlink2');
             $table->string('hlink3');
             $table->string('hlink4');
-            $table->binary('img1')->nullable();
-            $table->binary('img2')->nullable();
-            $table->binary('img3')->nullable();
-            $table->binary('img4')->nullable();
+            //$table->binary('img1')->nullable();
+            //$table->binary('img2')->nullable();
+            //$table->binary('img3')->nullable();
+            //$table->binary('img4')->nullable();
             $table->timestamps();
         });
-
+        DB::statement("ALTER TABLE notes ADD img1 MEDIUMBLOB");
+        DB::statement("ALTER TABLE notes ADD img2 MEDIUMBLOB");
+        DB::statement("ALTER TABLE notes ADD img3 MEDIUMBLOB");
+        DB::statement("ALTER TABLE notes ADD img4 MEDIUMBLOB");
         Schema::table('notes', function($table) {
            $table->foreign('userid')->references('id')->on('users')->onDelete('cascade');
         });

@@ -38,10 +38,17 @@ class SessionsController extends \BaseController {
 	public function store()
 	{
 		//
+        $input = Input::all();
+
         $rules = [
             'email' => 'required|email',
             'password' => 'required',
         ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator->messages());
+        }
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password'),
