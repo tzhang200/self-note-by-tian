@@ -29,6 +29,7 @@ class CreateNotesTable extends Migration {
             $table->string('hlink2');
             $table->string('hlink3');
             $table->string('hlink4');
+            $table->string('hlinks', 1024)->nullable();
             //$table->binary('img1')->nullable();
             //$table->binary('img2')->nullable();
             //$table->binary('img3')->nullable();

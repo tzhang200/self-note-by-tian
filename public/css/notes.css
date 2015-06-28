@@ -52,21 +52,25 @@
     border-style:solid;
     border-color:#ccc;
     border-width:1px;
-    width: 168px;
+    width: 200px;
 }
-
+#column2 input[type="text"] {
+    width: 180px;
+}
 #section2 {
     float: right; /*Sets this sectionto the right */
     background: #fff;
     width: 435px;
 }
 
+
+
 #column3 {
     float: left; /* Sets this column to the left inside its section */
     border-style:solid;
     border-color:#ccc;
     border-width:1px;
-    width: 217px;
+    width: 230px;
 }
 
 #column4 {

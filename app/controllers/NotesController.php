@@ -75,38 +75,44 @@ class NotesController extends \BaseController {
 	{
 		//
         $input = Input::all();
+/*
         $rules = [
-            'hlink1' => 'url',
-            'hlink2' => 'url',
-            'hlink3' => 'url',
-            'hlink4' => 'url',
+            'hlinks[0]' => 'url',
+            'hlinks[1]' => 'url',
+            'hlinks[2]' => 'url',
+            'hlinks[3]' => 'url',
             'img1'   => 'max:600|mimes:jpeg,gif',
             'img2'   => 'max:600|mimes:jpeg,gif',
             'img3'   => 'max:600|mimes:jpeg,gif',
             'img4'   => 'max:600:mimes:jpeg,gif',
         ];
+*/
+
+
+        $links = Input::get('hlinks');
+        $rules = $this->getFormRules($links);
+
+        if (is_array($links)) {
+            foreach($links as $key=>$val){
+                $processedLinksArray['hlinks['.$key.']'] = $val;
+            }
+        }
         $validator = Validator::make($input, $rules);
         if ($validator->fails())
         {
-            return Redirect::back()->withInput()->withErrors($validator->messages());
+            return Redirect::back()->withInput($processedLinksArray + Input::except('hlinks'))->withErrors($validator->messages());
         }
+
         $note = Note::where('email', '=', $id)->first();
-       // $file1 = Input::file('img1');
-       // $file2 = Input::file('img2');
-       // $file3 = Input::file('img3');
-       // $file4 = Input::file('img4');
+
         $imageDeleteIDs = array ('delImg1', 'delImg2', 'delImg3', 'delImg4');
         $imageFields = array('img1', 'img2', 'img3', 'img4');
         $note->notes = Input::get('notes');
         $note->tbd = Input::get('tbd');
-        if (Input::get('hlink1')!= null)
-            $note->hlink1 = Input::get('hlink1');
-        $note->hlink2 = Input::get('hlink2');
-        $note->hlink3 = Input::get('hlink3');
-        $note->hlink4 = Input::get('hlink4');
 
-
-
+        $validLinks = array_filter($links);
+        $linkInString = implode('\t', $validLinks);
+        $note->hlinks = $linkInString;
         for ($i = 0; $i < count($imageFields); $i++)
         {
             if (Input::has($imageDeleteIDs[$i]))
@@ -132,10 +138,24 @@ class NotesController extends \BaseController {
 
 
         $note->save();
-        return Redirect::back()->withInput();
+        //return Redirect::back()->withInput();
+        return Redirect::back();
 
 	}
-
+    private function getFormRules($links)
+    {
+        $rules = [
+            'img1'   => 'max:600|mimes:jpeg,gif',
+            'img2'   => 'max:600|mimes:jpeg,gif',
+            'img3'   => 'max:600|mimes:jpeg,gif',
+            'img4'   => 'max:600|mimes:jpeg,gif',
+        ];
+        foreach($links as $key=>$val)
+        {
+            $rules['hlinks['.$key.']'] = 'active_url|url';
+        }
+        return $rules;
+    }
 
 	/**
 	 * Remove the specified resource from storage.
