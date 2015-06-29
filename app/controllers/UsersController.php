@@ -153,6 +153,49 @@ class UsersController extends \BaseController {
     {
         return View::make('users.process_password');
     }
+
+    public function changingPassword()
+    {
+        return View::make('users.change_password');
+    }
+
+    public function changePassword()
+    {
+        $input = Input::all();
+        $rules = [
+        'email' => 'required|email',
+        'oldPassword' => 'required',
+        'password' => 'required|min:6|max:80|confirmed',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator->messages());
+        }
+        $changeSuccess = 1;
+        $pass =Input::get('oldPassword');
+        $user = User::Where('email', '=', Input::get('email'))->first();
+        $val = Hash::check($pass, $user->password);
+        if ($user == null)
+        {
+            $changeSuccess = 0;
+        }
+        else if (Hash::check($pass, $user->password) === false)
+        {
+            $changeSuccess = 0;
+        }
+        if ($changeSuccess !== 1)
+        {
+            Session::flash('message', 'Password cannot be changed. Please verify your email address and old password');
+            return Redirect::back()->withInput();
+        }
+        else
+        {
+            $user->password = Hash::make(Input::get('password'));
+            $user->save();
+        }
+        return View::make('users.change_password_success');
+    }
 	/**
 	 * Display the specified resource.
 	 *

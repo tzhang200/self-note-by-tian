@@ -4,7 +4,7 @@
     <div id="note_body">
     <div id="wrapper">
         {{Form::open(array('method'=>'PUT','route' => array('notes.update', $note->email), 'files' => true))}}
-        <h2 id="header">{{$note->email}} - <span>{{HTML::linkRoute('logout','Log out')}}</span></h2>
+        <h2 id="header">{{$note->email}} - <span>{{HTML::linkRoute('logout','Log out')}}| {{HTML::linkRoute('changing_password', 'Change password')}}</span></h2>
         <div id="section1">
             <div id="column1">
                 <h2>Notes</h2>
@@ -76,8 +76,8 @@
                 @endif
             </div>
             <div id="column4">
-                <h2>tbd</h2>
-                {{FORM::textarea('TBD', $note->tbd, array('cols'=>'16', 'rows'=>'40'))}}
+                <h2>TBD</h2>
+                {{FORM::textarea('tbd', $note->tbd, array('cols'=>'16', 'rows'=>'40'))}}
             </div>
         </div>
         <div id="footer">
