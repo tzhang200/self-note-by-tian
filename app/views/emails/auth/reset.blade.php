@@ -7,7 +7,8 @@
 <h2>Password reset notice</h2>
 
 <div>
-    Welcome to  the Self Note app. YOUR NEW PASSWORD IS {{$newPassword}}. Please keep this email or write this down.
+    Welcome to  the Self Note app. YOUR NEW PASSWORD IS {{$newPassword}}. It's recommended to change your password once you log in with this password.
+    Please keep this email or write this down.
 </div>
 <div>
     To log in again, please click this link: <a href="{{ URL::to('login' ) }}">Log in</a> <br/>

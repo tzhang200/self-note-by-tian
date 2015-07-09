@@ -10,9 +10,27 @@
     @yield('headers')
 </head>
 <body>
+
 <div class="box_main">
-@yield('maincontent')
-@yield('footers')
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="text-center text-primary">
+                <h2>Note to Myself</h2>
+            </div>
+        </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+    </nav>
+    <div class="wrapper">
+        @yield('maincontent')
+    </div>
+
+    <div id="footer" class="navbar-default navbar-fixed-bottom">
+        <div class="container text-left">
+            <p>COMP 2920 Assignment 2 - T Zhang</p>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

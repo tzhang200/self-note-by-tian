@@ -8,7 +8,7 @@
 
 <div>
     Welcome to  the Self Note app. Your account has been locked because of being unsuccessfully logged in for more than 3 times.
-    YOUR PASSWORD has been reset to {{$newPassword}}. Please keep this email or write this down.
+    YOUR PASSWORD has been reset to {{$newPassword}}. It's recommended to change your password once logging in with this password.
 </div>
 <div>
     To unlock your account, please click this link to

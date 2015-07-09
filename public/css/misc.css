@@ -1,7 +1,6 @@
 body {
     padding-top: 0;
-    background-color: #CCCCCC;
-    /*background-image: url(../images/blue_background.jpg);*/
+    background-image: url(../images/blue_background.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -12,10 +11,29 @@ body {
     background-color:#FFFFCC;
     margin: 0 auto;
     width: 1000px;
-    padding: 30px 20px 30px;
-    min-height: 600px;
+    padding: 0px 0px 30px;
+    min-height: 800px;
 }
 
 .wrapper {
     margin: 0 30px 0;
+}
+
+.navbar{
+    background-color:#ff74d3;
+    margin:0;
+
+}
+
+#footer.navbar-fixed-bottom
+{
+    width: 1000px !important;
+    margin: 0 auto;
+    background-color:red;
+    color:yellow;
+    padding:0.5em 0;
+}
+#footer.navbar-default.navbar-fixed-bottom p
+{
+    margin:0;
 }
