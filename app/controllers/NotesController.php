@@ -1,5 +1,5 @@
 <?php
-
+/* T Zhang 2015 */
 class NotesController extends \BaseController {
 
 	/**
@@ -75,18 +75,6 @@ class NotesController extends \BaseController {
 	{
 		//
         $input = Input::all();
-/*
-        $rules = [
-            'hlinks[0]' => 'url',
-            'hlinks[1]' => 'url',
-            'hlinks[2]' => 'url',
-            'hlinks[3]' => 'url',
-            'img1'   => 'max:600|mimes:jpeg,gif',
-            'img2'   => 'max:600|mimes:jpeg,gif',
-            'img3'   => 'max:600|mimes:jpeg,gif',
-            'img4'   => 'max:600:mimes:jpeg,gif',
-        ];
-*/
 
 
         $links = Input::get('hlinks');

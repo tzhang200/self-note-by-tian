@@ -1,5 +1,5 @@
 <?php
-
+/* T Zhang 2015 */
 class SessionsController extends \BaseController {
 
 	/**

@@ -1,0 +1,2 @@
+(a)URL: http://notes.pro-gamer.ca or nlearning.cloundapp.net. It may not be 24/7 available, so if you can't access it, drop me an email to tzhang22@my.bcit.ca and I'll resolve it. Thank you.
+(b) See marking_scheme_tian_zhang.doc
