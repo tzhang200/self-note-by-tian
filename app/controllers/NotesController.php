@@ -1,5 +1,5 @@
 <?php
-
+/* T Zhang 2015 */
 class NotesController extends \BaseController {
 
 	/**
@@ -49,6 +49,15 @@ class NotesController extends \BaseController {
 		//
         //return View::make('notes.show');
         $note = Note::where('email', '=', $id)->first();
+        if ($note == null)
+        {
+            $note = new Note();
+            $note->userid = Auth::user()->id;
+            $note->email = Auth::user()->email;
+            $note->notes = "";
+            $note->tbd = "";
+            $note->save();
+        }
         return View::make('notes.show')->with('note', $note);
 	}
 
@@ -75,18 +84,6 @@ class NotesController extends \BaseController {
 	{
 		//
         $input = Input::all();
-/*
-        $rules = [
-            'hlinks[0]' => 'url',
-            'hlinks[1]' => 'url',
-            'hlinks[2]' => 'url',
-            'hlinks[3]' => 'url',
-            'img1'   => 'max:600|mimes:jpeg,gif',
-            'img2'   => 'max:600|mimes:jpeg,gif',
-            'img3'   => 'max:600|mimes:jpeg,gif',
-            'img4'   => 'max:600:mimes:jpeg,gif',
-        ];
-*/
 
 
         $links = Input::get('hlinks');

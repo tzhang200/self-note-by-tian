@@ -1,5 +1,5 @@
 <?php
-
+/* T Zhang 2015 */
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -25,15 +25,7 @@ class CreateNotesTable extends Migration {
             $table->string('email')->unique();
             $table->string('notes', 1024);
             $table->string('tbd', 1024);
-            $table->string('hlink1');
-            $table->string('hlink2');
-            $table->string('hlink3');
-            $table->string('hlink4');
             $table->string('hlinks', 1024)->nullable();
-            //$table->binary('img1')->nullable();
-            //$table->binary('img2')->nullable();
-            //$table->binary('img3')->nullable();
-            //$table->binary('img4')->nullable();
             $table->timestamps();
         });
         DB::statement("ALTER TABLE notes ADD img1 MEDIUMBLOB");

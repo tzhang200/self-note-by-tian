@@ -1,3 +1,4 @@
+{{-- T Zhang 2015 --}}
 <!doctype html>
 <html>
 <head>
@@ -15,9 +16,13 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="text-center text-primary">
-                <h2>Note to Myself</h2>
+            <div class="navbar-header text-right">
+                <strong><h2>Note to Myself</h2></strong>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>{{HTML::linkRoute('login', "Home")}}</li>
+                <li>{{HTML::linkRoute('contact', 'Contact')}}</li>
+            </ul>
         </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
     </nav>

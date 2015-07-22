@@ -1,4 +1,5 @@
 <?php
+/* T Zhang 2015 */
 
 class UsersController extends \BaseController {
 
@@ -71,10 +72,6 @@ class UsersController extends \BaseController {
             $note->email = $this->user->email;
             $note->notes = "";
             $note->tbd = "";
-            $note->hlink1 = "";
-            $note->hlink2 = "";
-            $note->hlink3 = "";
-            $note->hlink4 = "";
             $note->save();
         }
         return View::make('users.process_registration_success',array('email'=>Input::get('email')));
@@ -103,12 +100,12 @@ class UsersController extends \BaseController {
     {
         if ($confirmationCode == null)
         {
-            return View::make('users.process_registration'); //TODO
+            return View::make('users.process_registration');
         }
         $user = User::Where('confirmcode', '=', $confirmationCode)->first();
         if ($user == null)
         {
-            return View::make('users.process_registration'); //TODO
+            return View::make('users.process_registration');
         }
         $user->locked = 0;
         $user->confirmcode = null;
@@ -136,7 +133,7 @@ class UsersController extends \BaseController {
         $randomPassword = str_random(6);
         $user = User::Where('email', '=', Input::get('email'))->first();;
         $user->password = Hash::make($randomPassword);
-        //$user->confirmed = 0;  //user needs to re-confirm: TODO
+        //$user->confirmed = 0;  //user needs to re-confirm:
         //$confirmationCode = str_random(30).Input::get('email');
         $confirmationCode = $user->confirmcode;
 

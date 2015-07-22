@@ -1,3 +1,4 @@
+{{-- T Zhang 2015 --}}
 @extends('layouts/basic')
 
 @section('maincontent')
@@ -5,6 +6,7 @@
     <div id="wrapper">
         {{Form::open(array('method'=>'PUT','route' => array('notes.update', $note->email), 'files' => true))}}
         <h2 id="header">{{$note->email}} - <span>{{HTML::linkRoute('logout','Log out')}}| {{HTML::linkRoute('changing_password', 'Change password')}}</span></h2>
+
         <div id="section1">
             <div id="column1">
                 <h2>Notes</h2>
@@ -13,21 +15,27 @@
             <div id="column2">
                 <h2>Websites</h2>
                 <h3>Click to open</h3>
-                @if ($note->hlinks !== null)
-                    <?php $links = explode('\t',$note->hlinks); $count = count($links); $i=0?>
-                    @for ($i=0; $i < $count; $i++)
+                @if (($note->hlinks !== null) && !empty(trim($note->hlinks)))
+                    <?php $i=0; $links = explode('\t',$note->hlinks); $count = count($links); ?>
 
-                        <input type="text" name="hlinks[{{$i}}]" value="{{$links[$i]}}" onclick="openTextInNew(this);">
-                        <span class='text-danger'>{{$errors->first("hlinks[$i]")}}</span>
+                     @for ($i=0; $i < $count; $i++)
+
+                         <input type="text" name="hlinks[{{$i}}]" value="{{$links[$i]}}" onclick="openTextInNew(this);">
+                         <span class='text-danger'>{{$errors->first("hlinks[$i]")}}</span>
+                         <hr />
+                     @endfor
+                        @for ($j= $i; $j < $i + 4; $j++)
+                            <input type="text" name="hlinks[{{$j}}]" >
+                            <span class='text-danger'>{{$errors->first("hlinks[$j]")}}</span>
+                            <hr />
+                        @endfor
+                @else
+                    @for ($j= 0; $j < 4; $j++)
+                        <input type="text" name="hlinks[{{$j}}]" >
+                        <span class='text-danger'>{{$errors->first("hlinks[$j]")}}</span>
                         <hr />
                     @endfor
-
                 @endif
-                @for ($j= $i; $j < $i + 4; $j++)
-                    <input type="text" name="hlinks[{{$j}}]" >
-                    <span class='text-danger'>{{$errors->first("hlinks[$j]")}}</span>
-                    <hr />
-                @endfor
 
             </div>
         </div>

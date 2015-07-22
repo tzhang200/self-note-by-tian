@@ -1,5 +1,5 @@
 <?php
-
+/* T Zhang 2015 */
 class SessionsController extends \BaseController {
 
 	/**
@@ -24,6 +24,15 @@ class SessionsController extends \BaseController {
         if (Auth::check())
         {
             $note = Note::where('email', '=', Auth::user()->email)->first();
+            if ($note == null)
+            {
+                $note = new Note();
+                $note->userid = Auth::user()->id;
+                $note->email = Auth::user()->email;
+                $note->notes = "";
+                $note->tbd = "";
+                $note->save();
+            }
             return View::make('notes.show')->with('note', $note);
         }
         return View::make('sessions.create');
@@ -62,14 +71,10 @@ class SessionsController extends \BaseController {
             if ($note == null)
             {
                 $note = new Note();
-                $note->userid = $this->user->id;
-                $note->email = $this->user->email;
+                $note->userid = Auth::user()->id;
+                $note->email = Auth::user()->email;
                 $note->notes = "";
                 $note->tbd = "";
-                $note->hlink1 = "";
-                $note->hlink2 = "";
-                $note->hlink3 = "";
-                $note->hlink4 = "";
                 $note->save();
             }
             return Redirect::route('notes.show', array(Auth::user()->email));

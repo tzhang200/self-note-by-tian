@@ -40,3 +40,9 @@ Route::group(['before' => 'auth'], function(){
     Route::get('changepassowrd', array('uses'=>'UsersController@changingPassword', 'as' => 'changing_password'));
     Route::post('changepassowrd', array('uses'=>'UsersController@changePassword', 'as' => 'change_password'));
 });
+
+//For Final Exam - Contact form
+Route::get('contact',
+    ['as' => 'contact', 'uses' => 'AboutController@create']);
+Route::post('contact',
+    ['as' => 'contact_store', 'uses' => 'AboutController@store']);
